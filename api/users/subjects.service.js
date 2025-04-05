@@ -23,7 +23,7 @@ module.exports = {
   },
   getSubjects: (callBack) => {
     pool.query(
-      `SELECT id, title, name, category, positive, negative, video, status FROM subjects`,
+      `SELECT id, title, name, positive, negative, video, status FROM coursesubjects`,
       [],
       (error, results, fields) => {
         if (error) {
@@ -56,6 +56,20 @@ module.exports = {
         data.video,
         data.id,
       ],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  },
+  updateSubjectStatus: (data, callBack) => {
+    console.log("data", data);
+
+    pool.query(
+      `UPDATE coursesubjects SET status=? WHERE id=?`,
+      [data.status, data.id],
       (error, results, fields) => {
         if (error) {
           return callBack(error);
