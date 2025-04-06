@@ -124,4 +124,17 @@ module.exports = {
       }
     );
   },
+
+  statusPaper: (data, callBack) => {
+    pool.query(
+      `UPDATE practice_papers SET status=? WHERE id=?`,
+      [data.status, data.id],
+      (error, results, fields) => {
+        if (error) {
+          return callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  },
 };

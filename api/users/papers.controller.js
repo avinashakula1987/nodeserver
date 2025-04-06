@@ -4,6 +4,7 @@ const {
   getPapers,
   updatePaper,
   deletePaper,
+  statusPaper,
 } = require("./papers.service");
 module.exports = {
   createPaper: (req, res) => {
@@ -78,6 +79,20 @@ module.exports = {
       return res.json({
         success: 1,
         message: "Paper Deleted",
+      });
+    });
+  },
+
+  statusPaper: (req, res) => {
+    const data = req.body;
+    statusPaper(data, (err, results) => {
+      if (err) {
+        return;
+      }
+
+      return res.json({
+        success: 1,
+        message: "Paper Status Changed",
       });
     });
   },
